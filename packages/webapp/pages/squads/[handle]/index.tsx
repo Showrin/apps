@@ -122,6 +122,14 @@ const SquadPage = ({ handle }: SourcePageProps): ReactElement => {
     isFinishedLoading && !isForbidden,
   );
 
+  const sharePostTutorial = useTutorial({
+    key: TutorialKey.ShareSquadPost,
+  });
+
+  const copyLinkTutorial = useTutorial({
+    key: TutorialKey.CopySquadLink,
+  });
+
   if (isLoading && !isFetched && !squad) return <SquadLoading />;
 
   if (!isFetched) return <></>;
@@ -138,14 +146,6 @@ const SquadPage = ({ handle }: SourcePageProps): ReactElement => {
   }
 
   if (!squad) return <Custom404 />;
-
-  const sharePostTutorial = useTutorial({
-    key: TutorialKey.ShareSquadPost,
-  });
-
-  const copyLinkTutorial = useTutorial({
-    key: TutorialKey.CopySquadLink,
-  });
 
   const onNewSquadPost = (props: NewSquadPostProps = {}) =>
     openModal({

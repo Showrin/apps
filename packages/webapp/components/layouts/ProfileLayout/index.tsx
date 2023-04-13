@@ -69,10 +69,6 @@ export default function ProfileLayout({
   const router = useRouter();
   const { isFallback } = router;
 
-  if (!isFallback && !initialProfile) {
-    return <Custom404 />;
-  }
-
   const { user } = useContext(AuthContext);
   const selectedTab = tabs.findIndex((tab) => tab.path === router?.pathname);
 
@@ -94,7 +90,7 @@ export default function ProfileLayout({
     userRankQueryKey,
     () =>
       request(graphqlUrl, USER_READING_RANK_QUERY, {
-        id: initialProfile?.id,
+        id: initialProfile.id,
         version: 2,
       }),
     {
@@ -131,6 +127,10 @@ export default function ProfileLayout({
       setPortfolioLink(sanitizeOrNull(purify, profile.portfolio));
     }
   }, [profile]);
+
+  if (!isFallback && !initialProfile) {
+    return <Custom404 />;
+  }
 
   if (isFallback && !initialProfile) {
     return <></>;

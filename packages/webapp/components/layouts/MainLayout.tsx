@@ -6,7 +6,7 @@ import MainLayout, {
 
 export default MainLayout;
 
-export const getLayout = (
+const GetLayout = (
   page: ReactNode,
   pageProps?: Record<string, unknown>,
   layoutProps?: MainLayoutProps,
@@ -18,3 +18,5 @@ export const getLayout = (
     </MainLayout>
   );
 };
+
+export const getLayout = GetLayout;
