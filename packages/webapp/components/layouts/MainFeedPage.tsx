@@ -58,6 +58,15 @@ export default function MainFeedPage({
         }
       }
     }
+    // this effect uses the anti pattern of setting state in useEffect
+    // so additional inspection of all use cases is needed to ensure
+    // no bugs are introduced. This then introduces multiple render cycles with
+    // mismatched state until all state setter calls are resolved.
+    // Some ideas for refactor
+    // 1. feedName and isSearchOn can be refactored to useMemo
+    // 2. router.replace logic can stay in useEffect with minimal dependencies
+    // 3. other if-else path branches need to be reviewd and state setters removed since now we useMemo
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
   if (!feedName) {
