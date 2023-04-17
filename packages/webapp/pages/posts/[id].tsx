@@ -83,7 +83,7 @@ const PostPage = ({ id, initialData }: Props): ReactElement => {
   useWindowEvents(
     'popstate',
     CHECK_POPSTATE,
-    useCallback(() => router.reload(), []),
+    useCallback(() => router.reload(), [router]),
     false,
   );
 

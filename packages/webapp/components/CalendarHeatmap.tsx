@@ -95,7 +95,10 @@ export default function CalendarHeatmap<T extends { date: string }>({
 
   const numEmptyDaysAtEnd = DAYS_IN_WEEK - 1 - endDate.getDay();
   const numEmptyDaysAtStart = startDate.getDay();
-  const startDateWithEmptyDays = addDays(startDate, -numEmptyDaysAtStart);
+  const startDateWithEmptyDays = useMemo(
+    () => addDays(startDate, -numEmptyDaysAtStart),
+    [startDate, numEmptyDaysAtStart],
+  );
 
   const dateDifferenceInDays = differenceInDays(endDate, startDate);
 
@@ -132,7 +135,7 @@ export default function CalendarHeatmap<T extends { date: string }>({
         };
         return acc;
       }, {}),
-    [values, valueToCount, startDate, endDate, bins],
+    [values, valueToCount, bins, startDateWithEmptyDays],
   );
 
   const getMonthLabelCoordinates = (weekIndex: number): [number, number] => [

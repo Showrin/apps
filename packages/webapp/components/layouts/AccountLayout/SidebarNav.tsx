@@ -48,7 +48,7 @@ function SidebarNav({
     return () => {
       router.events.off('routeChangeStart', closeSideNav);
     };
-  }, [router]);
+  }, [router.events, closeSideNav]);
 
   if (!user) {
     return null;

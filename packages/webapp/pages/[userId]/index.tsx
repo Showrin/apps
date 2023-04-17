@@ -132,7 +132,7 @@ const ProfilePage = ({ profile }: ProfileLayoutProps): ReactElement => {
     const startYear = new Date(selected, 0, 1);
 
     return [addDays(endOfYear(startYear), 1), startYear];
-  }, [selectedHistoryYear]);
+  }, [selectedHistoryYear, fullHistory]);
   const [readingHistory, setReadingHistory] =
     useState<ProfileReadingData>(null);
 

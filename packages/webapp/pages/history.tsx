@@ -35,7 +35,7 @@ const History = (): ReactElement => {
   const router = useRouter();
   const { user } = useContext(AuthContext);
   const searchQuery = router.query?.q?.toString();
-  const key = ['readHistory', user?.id];
+  const key = useMemo(() => ['readHistory', user?.id], [user?.id]);
   const client = useQueryClient();
 
   const queryProps = useMemo(() => {
