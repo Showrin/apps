@@ -48,6 +48,10 @@ function Enable(): React.ReactElement {
     };
 
     checkPermission();
+    // useNotificationContext has missing dependencies so
+    // it has to be fixed first to be able to correctly
+    // fix this effect's dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInitialized]);
 
   if (!isInitialized) {
