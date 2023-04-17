@@ -61,6 +61,13 @@ export interface SquadReferralProps {
   initialData: SourceMember;
 }
 
+const joinSquadAnalyticsExtra = (member?: SourceMember) => {
+  return JSON.stringify({
+    inviter: member?.user.id,
+    squad: member?.source.id,
+  });
+};
+
 const SquadReferral = ({
   token,
   handle,
@@ -104,22 +111,15 @@ const SquadReferral = ({
     },
   );
 
-  const joinSquadAnalyticsExtra = () => {
-    return JSON.stringify({
-      inviter: member.user.id,
-      squad: member.source.id,
-    });
-  };
-
   useEffect(() => {
     if (trackedImpression || !member) return;
 
     trackEvent({
       event_name: AnalyticsEvent.ViewSquadInvitation,
-      extra: joinSquadAnalyticsExtra(),
+      extra: joinSquadAnalyticsExtra(member),
     });
     setTrackedImpression(true);
-  }, [member, trackedImpression]);
+  }, [member, trackEvent, trackedImpression]);
 
   const sourceId = member?.source?.id;
   const { mutateAsync: onJoinSquad } = useMutation(
@@ -128,7 +128,7 @@ const SquadReferral = ({
       onSuccess: (data) => {
         trackEvent({
           event_name: AnalyticsEvent.CompleteJoiningSquad,
-          extra: joinSquadAnalyticsExtra(),
+          extra: joinSquadAnalyticsExtra(member),
         });
 
         const squad = squads.find(({ id }) => id === data.id);
@@ -148,7 +148,7 @@ const SquadReferral = ({
 
     trackEvent({
       event_name: AnalyticsEvent.ClickJoinSquad,
-      extra: joinSquadAnalyticsExtra(),
+      extra: joinSquadAnalyticsExtra(member),
     });
 
     if (loggedUser) return onJoinSquad();
