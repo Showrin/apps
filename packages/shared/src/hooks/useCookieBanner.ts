@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { LoggedUser } from '../lib/user';
 
 const consentCookieName = 'ilikecookies';
@@ -10,27 +10,30 @@ export function useCookieBanner(): [
 ] {
   const [showCookie, setShowCookie] = useState(false);
 
-  const acceptCookies = (): void => {
+  const acceptCookies = useCallback((): void => {
     setShowCookie(false);
     document.cookie = `${consentCookieName}=true;path=/;domain=${
       process.env.NEXT_PUBLIC_DOMAIN
     };samesite=lax;expires=${60 * 60 * 24 * 365 * 10}`;
-  };
+  }, []);
 
-  const updateCookieBanner = (user?: LoggedUser): void => {
-    if (
-      document.cookie
-        .split('; ')
-        .find((row) => row.startsWith(consentCookieName))
-    ) {
-      return;
-    }
-    if (user) {
-      acceptCookies();
-      return;
-    }
-    setShowCookie(true);
-  };
+  const updateCookieBanner = useCallback(
+    (user?: LoggedUser): void => {
+      if (
+        document.cookie
+          .split('; ')
+          .find((row) => row.startsWith(consentCookieName))
+      ) {
+        return;
+      }
+      if (user) {
+        acceptCookies();
+        return;
+      }
+      setShowCookie(true);
+    },
+    [acceptCookies],
+  );
 
   return [showCookie, acceptCookies, updateCookieBanner];
 }

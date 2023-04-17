@@ -84,7 +84,7 @@ function InternalApp({ Component, pageProps, router }: AppProps): ReactElement {
   usePrompt();
   useEffect(() => {
     updateCookieBanner(user);
-  }, [user]);
+  }, [user, updateCookieBanner]);
 
   useEffect(() => {
     if (!modal) {
