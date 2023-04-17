@@ -25,7 +25,7 @@ export default function BookmarkFeedPage({
     if (!user && tokenRefreshed) {
       router.replace('/');
     }
-  }, [tokenRefreshed, user]);
+  }, [router, tokenRefreshed, user]);
 
   return (
     <BookmarkFeedLayout

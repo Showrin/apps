@@ -99,7 +99,7 @@ const SquadPage = ({ handle }: SourcePageProps): ReactElement => {
       extra: JSON.stringify({ squad: squadId }),
     });
     setTrackedImpression(true);
-  }, [squadId, trackedImpression]);
+  }, [squadId, trackedImpression, trackEvent]);
 
   const { data: squadMembers } = useQuery<SourceMember[]>(
     ['squadMembersInitial', handle],

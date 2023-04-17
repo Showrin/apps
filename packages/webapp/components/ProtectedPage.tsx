@@ -22,7 +22,7 @@ function ProtectedPage({
     if (tokenRefreshed && !user) {
       router.replace('/');
     }
-  }, [tokenRefreshed, user]);
+  }, [router, tokenRefreshed, user]);
 
   return (
     <>
