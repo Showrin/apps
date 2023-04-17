@@ -84,7 +84,7 @@ const Notifications = (): ReactElement => {
     }
 
     trackEvent({ event_name: AnalyticsEvent.OpenNotificationList });
-  }, [isFetchedAfterMount]);
+  }, [isFetchedAfterMount, trackEvent]);
 
   return (
     <ProtectedPage seo={seo}>

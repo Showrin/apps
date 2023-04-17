@@ -27,7 +27,7 @@ function CallbackPage(): ReactElement {
       const url = `${process.env.NEXT_PUBLIC_WEBAPP_URL}?${search}`;
       window.location.replace(url);
     }
-  }, []);
+  }, [trackEvent]);
 
   return null;
 }
