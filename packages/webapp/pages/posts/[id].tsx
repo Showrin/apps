@@ -118,6 +118,14 @@ const PostPage = ({ id, initialData }: Props): ReactElement => {
     scrollProperty: 'scrollY',
   });
 
+  console.log(
+    isPostLoadingOrFetching,
+    isFallback,
+    !isFetched,
+    post?.type,
+    initialData,
+  );
+
   if (isPostLoadingOrFetching || isFallback || !isFetched) {
     return (
       <>
